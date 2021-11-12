@@ -9,6 +9,10 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
+    is_administrator = models.BooleanField()
+
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
 
 
 class Dog(models.Model):
@@ -24,3 +28,6 @@ class Dog(models.Model):
     dog_breed = models.CharField(max_length=100)
     dog_gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.dog_name
