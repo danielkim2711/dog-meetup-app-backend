@@ -4,8 +4,17 @@ from django.db import models
 
 
 class User(models.Model):
+    GENDER_MALE = 'M'
+    GENDER_FEMALE = 'F'
+
+    GENDER_CHOICES = [
+        (GENDER_MALE, 'Male'),
+        (GENDER_FEMALE, 'Female'),
+    ]
+
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
@@ -26,7 +35,8 @@ class Dog(models.Model):
 
     dog_name = models.CharField(max_length=100)
     dog_breed = models.CharField(max_length=100)
-    dog_gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    dog_gender = models.CharField(
+        max_length=1, choices=GENDER_CHOICES, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
