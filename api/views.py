@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .utils import get_users_list, get_user_detail, create_user, update_user, delete_user
+from .utils import get_users_list, create_user, get_user_detail, update_user, delete_user
 
 # Create your views here.
 

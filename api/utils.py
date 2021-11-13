@@ -9,15 +9,18 @@ def get_users_list(request):
     return Response(serializer.data)
 
 
-def get_user_detail(reqeust, pk):
-    user = User.objects.get(id=pk)
-    serializer = UserSerializer(user, many=False)
+def create_user(request):
+    serializer = UserSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+
     return Response(serializer.data)
 
 
-def create_user(request):
-    data = request.data
-    serializer = UserSerializer(data, many=False)
+def get_user_detail(reqeust, pk):
+    user = User.objects.get(id=pk)
+    serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
 
@@ -29,10 +32,10 @@ def update_user(request, pk):
     if serializer.is_valid():
         serializer.save()
 
-    return serializer.data
+    return Response(serializer.data)
 
 
 def delete_user(request, pk):
     user = User.objects.get(id=pk)
     user.delete()
-    return Response('User successfully deleted!')
+    return Response('User successfully deleted.')

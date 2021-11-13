@@ -12,13 +12,14 @@ class User(models.Model):
         (GENDER_FEMALE, 'Female'),
     ]
 
+    user_name = models.CharField(max_length=100)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
-    is_administrator = models.BooleanField()
+    is_administrator = models.BooleanField(default=False)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
@@ -36,7 +37,7 @@ class Dog(models.Model):
     dog_name = models.CharField(max_length=100)
     dog_breed = models.CharField(max_length=100)
     dog_gender = models.CharField(
-        max_length=1, choices=GENDER_CHOICES, null=True)
+        max_length=1, choices=GENDER_CHOICES)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
