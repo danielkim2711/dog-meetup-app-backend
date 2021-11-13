@@ -12,7 +12,7 @@ class User(models.Model):
         (GENDER_FEMALE, 'Female'),
     ]
 
-    user_name = models.CharField(max_length=100)
+    user_name = models.CharField(max_length=100, unique=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)

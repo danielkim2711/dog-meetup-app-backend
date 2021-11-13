@@ -7,20 +7,59 @@ from .utils import get_users_list, create_user, get_user_detail, update_user, de
 
 @api_view(['GET'])
 def apiOverview(request):
-    api_urls = {
-        'GET': '/users/',
-        'POST': '/users/',
-        'GET': '/users/<str:pk>/',
-        'PUT': '/users/<str:pk>/',
-        'DELETE': '/users/<str:pk>/',
-    }
-
+    api_urls = [
+        {
+            'Endpoint': 'users/',
+            'method': 'GET',
+            'body': None,
+            'description': 'Return an array of users'
+        },
+        {
+            'Endpoint': 'users/',
+            'method': 'POST',
+            'body': {
+                'user_name': '',
+                'first_name': '',
+                'last_name': '',
+                'gender': '',
+                'email': '',
+                'password': '',
+                'address': '',
+            },
+            'description': 'Create new user with data sent in POST request'
+        },
+        {
+            'Endpoint': 'users/<int:pk>/',
+            'method': 'GET',
+            'body': None,
+            'description': 'Return a single user object'
+        },
+        {
+            'Endpoint': 'users/<int:pk>/',
+            'method': 'PUT',
+            'body': {
+                'user_name': '',
+                'first_name': '',
+                'last_name': '',
+                'gender': '',
+                'email': '',
+                'password': '',
+                'address': '',
+            },
+            'description': 'Update an existing user with data sent in PUT request'
+        },
+        {
+            'Endpoint': 'users/<int:pk>/',
+            'method': 'DELETE',
+            'body': None,
+            'description': 'Delete an existing user'
+        },
+    ]
     return Response(api_urls)
 
 
-@api_view(['GET', 'POST'])
+@ api_view(['GET', 'POST'])
 def get_users(request):
-
     if request.method == 'GET':
         return get_users_list(request)
 
@@ -28,7 +67,7 @@ def get_users(request):
         return create_user(request)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@ api_view(['GET', 'PUT', 'DELETE'])
 def get_user(request, pk):
     if request.method == 'GET':
         return get_user_detail(request, pk)
