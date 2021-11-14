@@ -49,7 +49,7 @@ class Dog(models.Model):
         return self.name
 
 
-class Event(models.Model):
+class Activity(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     body = models.TextField(null=True, blank=True)

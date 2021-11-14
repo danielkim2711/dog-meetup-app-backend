@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Dog, Event
+from .models import User, Dog, Activity
 
 # Register your models here.
 
@@ -12,10 +12,10 @@ class DogAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'user')
 
 
-class EventAdmin(admin.ModelAdmin):
+class ActivityAdmin(admin.ModelAdmin):
     list_display = ('user', 'title', 'created')
 
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Dog, DogAdmin)
-admin.site.register(Event, EventAdmin)
+admin.site.register(Activity, ActivityAdmin)
