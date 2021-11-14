@@ -4,6 +4,8 @@ from .models import User, Dog
 from .serializers import UserSerializer, DogSerializer
 
 
+# Users
+
 def get_users_list(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
