@@ -1,5 +1,7 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from .utils import get_users_list, create_user, get_user_detail, update_user, delete_user, get_dogs_list, create_dog, get_dog_detail, update_dog, delete_dog
 
 # Create your views here.
@@ -61,6 +63,8 @@ def apiOverview(request):
 
 
 @api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_users(request):
     if request.method == 'GET':
         return get_users_list(request)
@@ -70,6 +74,8 @@ def get_users(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_user(request, pk):
     if request.method == 'GET':
         return get_user_detail(request, pk)
@@ -85,6 +91,8 @@ def get_user(request, pk):
 
 
 @api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_dogs(request):
     if request.method == 'GET':
         return get_dogs_list(request)
@@ -94,6 +102,8 @@ def get_dogs(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_dog(request, pk):
     if request.method == 'GET':
         return get_dog_detail(request, pk)
