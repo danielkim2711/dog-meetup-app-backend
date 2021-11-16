@@ -2,89 +2,103 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-from .utils import get_users_list, create_user, get_user_detail, update_user, delete_user, get_dogs_list, create_dog, get_dog_detail, update_dog, delete_dog
+from .utils import create_user, create_profile, get_profile_detail, update_profile, delete_profile, get_dogs_list, create_dog, get_dog_detail, update_dog, delete_dog
 
 # Create your views here.
 
-# Users
+# Profiles
 
 
 @api_view(['GET'])
 def apiOverview(request):
     api_urls = [
         {
-            'Endpoint': 'users/',
+            'Endpoint': 'profiles/',
             'method': 'GET',
             'body': None,
-            'description': 'Return an array of users'
+            'description': 'Return an array of profiles'
         },
         {
-            'Endpoint': 'users/',
+            'Endpoint': 'profiles/',
             'method': 'POST',
             'body': {
-                'user_name': '',
-                'first_name': '',
-                'last_name': '',
-                'gender': '',
-                'email': '',
-                'password': '',
-                'address': '',
+                # 'user_name': '',
+                # 'password': '',
+                'picture',
+                'first_name',
+                'last_name',
+                'gender',
+                'email',
+                'address',
             },
-            'description': 'Create new user with data sent in POST request'
+            'description': 'Create new profile with data sent in POST request'
         },
         {
-            'Endpoint': 'users/<int:pk>/',
+            'Endpoint': 'profiles/<int:pk>/',
             'method': 'GET',
             'body': None,
-            'description': 'Return a single user object'
+            'description': 'Return a single profile object'
         },
         {
-            'Endpoint': 'users/<int:pk>/',
+            'Endpoint': 'profiles/<int:pk>/',
             'method': 'PUT',
             'body': {
-                'user_name': '',
-                'first_name': '',
-                'last_name': '',
-                'gender': '',
-                'email': '',
-                'password': '',
-                'address': '',
+                # 'user_name',
+                # 'password',
+                'picture',
+                'first_name',
+                'last_name',
+                'gender',
+                'email',
+                'address',
             },
-            'description': 'Update an existing user with data sent in PUT request'
+            'description': 'Update an existing profile with data sent in PUT request'
         },
         {
-            'Endpoint': 'users/<int:pk>/',
+            'Endpoint': 'profiles/<int:pk>/',
             'method': 'DELETE',
             'body': None,
-            'description': 'Delete an existing user'
+            'description': 'Delete an existing profile'
         },
     ]
     return Response(api_urls)
 
 
-@api_view(['GET', 'POST'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
-def get_users(request):
-    if request.method == 'GET':
-        return get_users_list(request)
+# Users
 
-    if request.method == 'POST':
-        return create_user(request)
+
+@api_view(['POST'])
+def create_users(request):
+    return create_user(request)
+
+
+# Profiles
+
+
+# @api_view(['GET'])
+# @authentication_classes([TokenAuthentication])
+# @permission_classes([IsAuthenticated])
+# def get_profiles(request):
+#     return get_profiles_list(request)
+
+
+@api_view(['POST'])
+def create_profiles(request):
+    return create_profile(request)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def get_user(request, pk):
+def get_profile(request, pk):
     if request.method == 'GET':
-        return get_user_detail(request, pk)
+        return get_profile_detail(request, pk)
 
     if request.method == 'PUT':
-        return update_user(request, pk)
+        return update_profile(request, pk)
 
     if request.method == 'DELETE':
-        return delete_user(request, pk)
+        return delete_profile(request, pk)
 
 
 # Dogs

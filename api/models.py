@@ -4,7 +4,7 @@ from django.db.models.deletion import CASCADE
 # Create your models here.
 
 
-class User(models.Model):
+class Profile(models.Model):
     GENDER_MALE = 'M'
     GENDER_FEMALE = 'F'
 
@@ -14,15 +14,15 @@ class User(models.Model):
     ]
 
     picture = models.ImageField(
-        null=True, blank=True, upload_to='images/profile/users/')
-    user_name = models.CharField(max_length=100, unique=True)
+        null=True, blank=True, upload_to='images/profile/')
+    # username = models.CharField(max_length=100, unique=True)
+    # password = models.CharField(max_length=50)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     email = models.EmailField(unique=True)
-    password = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
-    is_administrator = models.BooleanField(default=False)
+    # is_administrator = models.BooleanField(default=False)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
@@ -38,19 +38,19 @@ class Dog(models.Model):
     ]
 
     picture = models.ImageField(
-        null=True, blank=True, upload_to='images/profile/dogs/')
+        null=True, blank=True, upload_to='images/dogs/')
     name = models.CharField(max_length=100)
     breed = models.CharField(max_length=100)
     gender = models.CharField(
         max_length=1, choices=GENDER_CHOICES)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
 
 class Activity(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     body = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

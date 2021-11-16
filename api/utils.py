@@ -1,17 +1,10 @@
 from rest_framework import status
 from rest_framework.response import Response
-from .models import User, Dog
-from .serializers import UserSerializer, DogSerializer
+from .models import Profile, Dog
+from .serializers import UserSerializer, ProfileSerializer, DogSerializer
 
 
 # Users
-
-
-def get_users_list(request):
-    users = User.objects.all()
-    serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
-
 
 def create_user(request):
     serializer = UserSerializer(data=request.data)
@@ -23,25 +16,44 @@ def create_user(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-def get_user_detail(reqeust, pk):
-    try:
-        user = User.objects.get(pk=pk)
+# Profiles
 
-    except User.DoesNotExist:
+
+# def get_profiles_list(request):
+#     profiles = Profile.objects.all()
+#     serializer = ProfileSerializer(profiles, many=True)
+#     return Response(serializer.data)
+
+
+def create_profile(request):
+    serializer = ProfileSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def get_profile_detail(reqeust, pk):
+    try:
+        profile = Profile.objects.get(pk=pk)
+
+    except Profile.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    serializer = UserSerializer(user, many=False)
+    serializer = ProfileSerializer(profile, many=False)
     return Response(serializer.data)
 
 
-def update_user(request, pk):
+def update_profile(request, pk):
     try:
-        user = User.objects.get(pk=pk)
+        profile = Profile.objects.get(pk=pk)
 
-    except User.DoesNotExist:
+    except Profile.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    serializer = UserSerializer(user, data=request.data)
+    serializer = ProfileSerializer(profile, data=request.data)
 
     if serializer.is_valid():
         serializer.save()
@@ -50,14 +62,14 @@ def update_user(request, pk):
     return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 
-def delete_user(request, pk):
+def delete_profile(request, pk):
     try:
-        user = User.objects.get(pk=pk)
+        profile = Profile.objects.get(pk=pk)
 
-    except User.DoesNotExist:
+    except Profile.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    user.delete()
+    profile.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 

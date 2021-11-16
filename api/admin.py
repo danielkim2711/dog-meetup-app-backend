@@ -1,21 +1,21 @@
 from django.contrib import admin
-from .models import User, Dog, Activity
+from .models import Profile, Dog, Activity
 
 # Register your models here.
 
 
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'first_name', 'last_name', 'is_administrator')
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'first_name', 'last_name')
 
 
 class DogAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'user')
+    list_display = ('id', 'name', 'profile')
 
 
 class ActivityAdmin(admin.ModelAdmin):
-    list_display = ('user', 'title', 'created')
+    list_display = ('profile', 'title', 'created')
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Dog, DogAdmin)
 admin.site.register(Activity, ActivityAdmin)
