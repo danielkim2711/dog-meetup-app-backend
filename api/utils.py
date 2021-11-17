@@ -7,11 +7,6 @@ from .serializers import UserSerializer, ProfileSerializer, DogSerializer
 
 # Users
 
-def get_users_list(request):
-    users = User.objects.all()
-    serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
-
 
 def create_user(request):
     serializer = UserSerializer(data=request.data)
@@ -21,6 +16,28 @@ def create_user(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def get_user_detail(reqeust, pk):
+    try:
+        user = User.objects.get(pk=pk)
+
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+
+def delete_user(request, pk):
+    try:
+        user = User.objects.get(pk=pk)
+
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    user.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 # Profiles
@@ -44,7 +61,7 @@ def create_profile(request):
 
 def get_profile_detail(reqeust, pk):
     try:
-        profile = Profile.objects.get(pk=pk)
+        profile = Profile.objects.get(user_id=pk)
 
     except Profile.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -55,7 +72,7 @@ def get_profile_detail(reqeust, pk):
 
 def update_profile(request, pk):
     try:
-        profile = Profile.objects.get(pk=pk)
+        profile = Profile.objects.get(user_id=pk)
 
     except Profile.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -71,7 +88,7 @@ def update_profile(request, pk):
 
 def delete_profile(request, pk):
     try:
-        profile = Profile.objects.get(pk=pk)
+        profile = Profile.objects.get(user_id=pk)
 
     except Profile.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)

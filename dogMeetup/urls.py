@@ -20,5 +20,5 @@ from api import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    path('auth/', views.CustomObtainAuthToken.as_view(), name='token'),
+    path('auth/', views.CustomAuthToken.as_view()),
 ]
