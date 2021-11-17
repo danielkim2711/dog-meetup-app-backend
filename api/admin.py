@@ -5,7 +5,7 @@ from .models import Profile, Dog, Activity
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'first_name', 'last_name')
+    list_display = ('id', 'first_name', 'last_name', 'user')
 
 
 class DogAdmin(admin.ModelAdmin):

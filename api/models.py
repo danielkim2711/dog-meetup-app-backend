@@ -1,5 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.db.models.deletion import CASCADE
+from django.db.models.fields import related
+from django.db.models.fields.related import OneToOneField
 
 # Create your models here.
 
@@ -22,6 +25,8 @@ class Profile(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     email = models.EmailField(unique=True)
     address = models.CharField(max_length=100)
+    user = models.OneToOneField(User, related_name='user',
+                                on_delete=models.CASCADE)
     # is_administrator = models.BooleanField(default=False)
 
     def __str__(self):

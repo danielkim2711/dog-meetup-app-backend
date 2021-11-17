@@ -1,10 +1,17 @@
 from rest_framework import status
 from rest_framework.response import Response
+from django.contrib.auth.models import User
 from .models import Profile, Dog
 from .serializers import UserSerializer, ProfileSerializer, DogSerializer
 
 
 # Users
+
+def get_users_list(request):
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
+
 
 def create_user(request):
     serializer = UserSerializer(data=request.data)
@@ -19,10 +26,10 @@ def create_user(request):
 # Profiles
 
 
-# def get_profiles_list(request):
-#     profiles = Profile.objects.all()
-#     serializer = ProfileSerializer(profiles, many=True)
-#     return Response(serializer.data)
+def get_profiles_list(request):
+    profiles = Profile.objects.all()
+    serializer = ProfileSerializer(profiles, many=True)
+    return Response(serializer.data)
 
 
 def create_profile(request):

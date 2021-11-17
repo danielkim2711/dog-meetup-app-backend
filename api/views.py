@@ -2,9 +2,20 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-from .utils import create_user, create_profile, get_profile_detail, update_profile, delete_profile, get_dogs_list, create_dog, get_dog_detail, update_dog, delete_dog
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from .utils import get_users_list, create_user, get_profiles_list, create_profile, get_profile_detail, update_profile, delete_profile, get_dogs_list, create_dog, get_dog_detail, update_dog, delete_dog
 
 # Create your views here.
+
+
+class CustomObtainAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        response = super(CustomObtainAuthToken, self).post(
+            request, *args, **kwargs)
+        token = Token.objects.get(key=response.data['token'])
+        return Response({'id': token.user_id, 'token': token.key})
+
 
 # Profiles
 
@@ -67,24 +78,27 @@ def apiOverview(request):
 # Users
 
 
-@api_view(['POST'])
-def create_users(request):
-    return create_user(request)
+@api_view(['GET', 'POST'])
+def get_users(request):
+    if request.method == 'GET':
+        return get_users_list(request)
+
+    if request.method == 'POST':
+        return create_user(request)
 
 
 # Profiles
 
 
-# @api_view(['GET'])
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
-# def get_profiles(request):
-#     return get_profiles_list(request)
+@api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_profiles(request):
+    if request.method == 'GET':
+        return get_profiles_list(request)
 
-
-@api_view(['POST'])
-def create_profiles(request):
-    return create_profile(request)
+    if request.method == 'POST':
+        return create_profile(request)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
