@@ -1,8 +1,8 @@
 from rest_framework import status
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from .models import Profile, Dog
-from .serializers import UserSerializer, ProfileSerializer, DogSerializer
+from .models import Profile, Dog, Activity
+from .serializers import UserSerializer, ProfileSerializer, DogSerializer, ActivitySerializer
 
 
 # Users
@@ -151,4 +151,60 @@ def delete_dog(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     dog.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
+# Activities
+
+
+def get_activities_list(request):
+    activities = Activity.objects.all()
+    serializer = ActivitySerializer(activities, many=True)
+    return Response(serializer.data)
+
+
+def create_activity(request):
+    serializer = ActivitySerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def get_activity_detail(reqeust, pk):
+    try:
+        activity = Activity.objects.get(pk=pk)
+
+    except Activity.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ActivitySerializer(activity, many=False)
+    return Response(serializer.data)
+
+
+def update_activity(request, pk):
+    try:
+        activity = Activity.objects.get(pk=pk)
+
+    except Activity.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ActivitySerializer(activity, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+
+    return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
+
+def delete_activity(request, pk):
+    try:
+        activity = Activity.objects.get(pk=pk)
+
+    except Activity.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    activity.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)

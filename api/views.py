@@ -4,7 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
-from .utils import create_user, get_user_detail, delete_user, get_profiles_list, create_profile, get_profile_detail, update_profile, delete_profile, get_dogs_list, create_dog, get_dog_detail, update_dog, delete_dog
+from .utils import create_user, delete_activity, get_user_detail, delete_user, get_profiles_list, create_profile, get_profile_detail, update_profile, delete_profile, get_dogs_list, create_dog, get_dog_detail, update_dog, delete_dog, get_activities_list, create_activity, get_activity_detail, update_activity, delete_activity
+
 
 # Create your views here.
 
@@ -155,3 +156,31 @@ def get_dog(request, pk):
 
     if request.method == 'DELETE':
         return delete_dog(request, pk)
+
+
+# Activities
+
+
+@api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_activities(request):
+    if request.method == 'GET':
+        return get_activities_list(request)
+
+    if request.method == 'POST':
+        return create_activity(request)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_activity(request, pk):
+    if request.method == 'GET':
+        return get_activity_detail(request, pk)
+
+    if request.method == 'PUT':
+        return update_activity(request, pk)
+
+    if request.method == 'DELETE':
+        return delete_activity(request, pk)

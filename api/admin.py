@@ -9,11 +9,11 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 class DogAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'profile')
+    list_display = ('id', 'name', 'user')
 
 
 class ActivityAdmin(admin.ModelAdmin):
-    list_display = ('profile', 'title', 'created')
+    list_display = ('user', 'title', 'created')
 
 
 admin.site.register(Profile, ProfileAdmin)

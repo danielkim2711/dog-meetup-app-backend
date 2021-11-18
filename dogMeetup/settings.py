@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 from pathlib import Path
 
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +88,12 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+cloudinary.config(
+    cloud_name="dluiyrdmg",
+    api_key="537533656683853",
+    api_secret="OuWXmoTE0y3WUKq2uN3AbzIZMbE"
+)
 
 
 # Password validation
