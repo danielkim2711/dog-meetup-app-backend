@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$-wx9+m_$5q3==0rll=$21ff^eww$vze3m9)+_oe@7zaw1@k%p
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'secret-waters-47990.herokuapp.com'
+    'dog-meetup-backend.herokuapp.com'
 ]
 
 
