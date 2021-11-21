@@ -30,56 +30,12 @@ class CustomAuthToken(ObtainAuthToken):
 
 @api_view(['GET'])
 def apiOverview(request):
-    api_urls = [
-        {
-            'Endpoint': 'profiles/',
-            'method': 'GET',
-            'body': None,
-            'description': 'Return an array of profiles'
-        },
-        {
-            'Endpoint': 'profiles/',
-            'method': 'POST',
-            'body': {
-                # 'user_name': '',
-                # 'password': '',
-                'picture',
-                'first_name',
-                'last_name',
-                'gender',
-                'email',
-                'address',
-            },
-            'description': 'Create new profile with data sent in POST request'
-        },
-        {
-            'Endpoint': 'profiles/<int:pk>/',
-            'method': 'GET',
-            'body': None,
-            'description': 'Return a single profile object'
-        },
-        {
-            'Endpoint': 'profiles/<int:pk>/',
-            'method': 'PUT',
-            'body': {
-                # 'user_name',
-                # 'password',
-                'picture',
-                'first_name',
-                'last_name',
-                'gender',
-                'email',
-                'address',
-            },
-            'description': 'Update an existing profile with data sent in PUT request'
-        },
-        {
-            'Endpoint': 'profiles/<int:pk>/',
-            'method': 'DELETE',
-            'body': None,
-            'description': 'Delete an existing profile'
-        },
-    ]
+    api_urls = {
+        'Users': '/users/',
+        'Profiles': '/profiles/',
+        'Dogs': '/dogs/',
+        'Activities': '/activities/',
+    }
     return Response(api_urls)
 
 

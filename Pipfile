@@ -8,7 +8,6 @@ django = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
 pillow = "*"
-cloudinary = "*"
 
 [dev-packages]
 autopep8 = "*"
