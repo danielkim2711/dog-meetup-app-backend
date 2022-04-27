@@ -4,12 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
 pillow = "*"
 gunicorn = "*"
 whitenoise = "*"
+django = "*"
 
 [dev-packages]
 autopep8 = "*"
